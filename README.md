@@ -21,7 +21,9 @@
 
 **결과**: 4시간 동안 무중단 크롤링으로 카테고리별 랭킹 데이터 자동 수집 성공
 
-**기술 스택**: Java 21, Spring Boot 3.5.7, PostgreSQL 16, JSoup
+**테스트**: JUnit 5 + Mockito로 크롤링 로직 및 재시도 메커니즘 단위 테스트
+
+**기술 스택**: Java 21, Spring Boot 3.5.7, PostgreSQL 16, JSoup, JUnit 5, Mockito
 
 📌 [프로젝트 상세보기](https://github.com/cryschan/BE-Repository)
 
@@ -40,7 +42,11 @@
 
 **결과**: 이미지 업로드만으로 색상 분석부터 코디 추천까지 자동 처리
 
-**기술 스택**: Java 21, Spring Boot 3.2.0, Python 3.11, FastAPI, OpenAI API, PostgreSQL 16
+**테스트**:
+- Java: JUnit 5 + Mockito로 서비스 레이어 단위 테스트
+- Python: pytest로 OpenAI API 모킹, ChromaDB 검색, 이미지 처리 파이프라인 테스트
+
+**기술 스택**: Java 21, Spring Boot 3.2.0, Python 3.11, FastAPI, OpenAI API, PostgreSQL 16, JUnit 5, Mockito, pytest
 
 📌 **Backend**: [ipzy-backend](https://github.com/cryschan/ipzy-backend) | **AI**: [ipzy-ai](https://github.com/cryschan/ipzy-ai)
 
@@ -58,7 +64,9 @@
 
 **결과**: 주문 도메인을 담당하며 트랜잭션 처리 로직 설계 완료
 
-**기술 스택**: Java, Spring Boot, MySQL, Docker Compose
+**테스트**: JUnit 5 + Mockito로 주문 생성, 재고 차감, 트랜잭션 롤백 시나리오 테스트
+
+**기술 스택**: Java, Spring Boot, MySQL, Docker Compose, JUnit 5, Mockito
 
 📌 [프로젝트 상세보기](https://github.com/doublejh0501/Bookstore)
 
@@ -119,6 +127,11 @@ domain/{name}/
 - JSoup (HTML 파싱)
 - Spring RestClient (API 호출)
 - Chrome DevTools (내부 API 발굴)
+
+**Testing**
+- JUnit 5, Mockito (Java 단위 테스트)
+- pytest (Python 단위 테스트)
+- 서비스 레이어 단위 테스트, 예외 케이스 검증
 
 <br>
 
