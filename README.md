@@ -1,30 +1,46 @@
 # 김재훈 (Jaehoon Kim)
 
-> **무신사 내부 API를 발굴하고, CLAUDE.md로 AI Agent 협업을 실천한 백엔드 개발자**
+> **기획부터 구현까지, AI 도구를 활용해 빠르게 실행하는 백엔드 개발자**
+>
+> 무신사 내부 API를 개발자 도구로 발굴하고, CLAUDE.md로 팀 지식을 관리합니다.
+> Docker Compose로 바로 실행 가능한 실용적인 코드를 작성합니다.
 
 <br>
 
 ## 🔥 대표 프로젝트
 
 ### 1️⃣ 무신사 크롤링 시스템 (BE-Repository)
-**무신사가 공개하지 않은 내부 API를 개발자 도구로 발굴하여 5000개 상품 데이터 수집**
+**무신사가 공개하지 않은 내부 API를 개발자 도구로 발굴하여 약 5000개 상품 데이터 수집**
 
-- **기술적 도전**: Chrome DevTools로 `/api2/hm/web/v5/pans/ranking` 엔드포인트 발견
-- **핵심 구현**: JSoup으로 `__NEXT_DATA__` JSON 파싱, 봇 탐지 우회 (1초 지연 + 재시도 로직)
-- **성과**: 4시간 무중단 크롤링, 카테고리별 랭킹 데이터 자동 수집
-- **기술 스택**: Java 21, Spring Boot 3.5.7, PostgreSQL 16, JSoup
+**문제**: 무신사는 개인에게 API를 제공하지 않아서 패션 트렌드 데이터를 수집할 방법이 없었습니다.
 
-📌 **[→ 프로젝트 상세보기](https://github.com/cryschan/BE-Repository)**
+**해결**:
+- Chrome DevTools Network 탭으로 내부 API 엔드포인트 발견 (`/api2/hm/web/v5/pans/ranking`)
+- 처음엔 봇 탐지로 차단당했지만, 1초 지연 + 재시도 로직으로 우회
+- JSoup으로 Next.js `__NEXT_DATA__` JSON을 파싱해 데이터 추출
+
+**결과**: 4시간 동안 무중단 크롤링으로 카테고리별 랭킹 데이터 자동 수집 성공
+
+**기술 스택**: Java 21, Spring Boot 3.5.7, PostgreSQL 16, JSoup
+
+📌 [프로젝트 상세보기](https://github.com/cryschan/BE-Repository)
 
 <br>
 
 ### 2️⃣ IPZY - AI 코디 추천 서비스
 **Java 백엔드와 Python AI 서버를 통합한 마이크로서비스 아키텍처**
 
-- **마이크로서비스 설계**: Spring Boot (비즈니스 로직) ↔ FastAPI (AI 처리) 역할 분리
-- **AI 통합**: GPT-4o 이미지 분석 (색상/패턴 추출) + GPT-3.5-turbo 코디 추천
-- **크롤링**: 무신사 PLP API 활용, 브랜드별 상품 자동 수집
-- **기술 스택**: Java 21, Spring Boot 3.2.0, Python 3.11, FastAPI, OpenAI API, PostgreSQL 16
+**기획**: "옷장에 있는 옷으로 어떤 코디를 할 수 있을까?"라는 아이디어에서 시작했습니다.
+
+**구현**:
+- Spring Boot(비즈니스 로직)와 FastAPI(AI 처리) 역할 분리
+- GPT-4o로 사용자 이미지 분석 (색상/패턴 추출), GPT-3.5-turbo로 코디 추천
+- 무신사 PLP API를 활용해 브랜드별 상품 자동 수집
+- 처음엔 Flask를 쓰려고 했는데, OpenAI API 비동기 호출 때문에 FastAPI로 변경
+
+**결과**: 이미지 업로드만으로 색상 분석부터 코디 추천까지 자동 처리
+
+**기술 스택**: Java 21, Spring Boot 3.2.0, Python 3.11, FastAPI, OpenAI API, PostgreSQL 16
 
 📌 **Backend**: [ipzy-backend](https://github.com/cryschan/ipzy-backend) | **AI**: [ipzy-ai](https://github.com/cryschan/ipzy-ai)
 
@@ -33,20 +49,27 @@
 ### 3️⃣ Bookstore - 온라인 서점 플랫폼
 **주문/결제 도메인 설계 및 트랜잭션 처리 구현**
 
-- **담당 영역**: 주문 생성, 결제 처리, 재고 차감 원자성 보장
-- **기술적 구현**: JPA 트랜잭션 관리, 동시성 제어 (낙관적 락)
-- **협업**: 3인 팀 프로젝트, Git 브랜치 전략 및 코드 리뷰
-- **기술 스택**: Java, Spring Boot, MySQL, Docker Compose
+**문제**: 주문 생성, 결제 처리, 재고 차감이 동시에 일어나는데 원자성을 어떻게 보장할까?
 
-📌 **[→ 프로젝트 상세보기](https://github.com/doublejh0501/Bookstore)**
+**해결**:
+- JPA 트랜잭션으로 주문/결제/재고 차감을 하나의 작업 단위로 묶음
+- 동시성 문제는 낙관적 락(Optimistic Lock)으로 제어
+- 3인 팀 프로젝트로 Git 브랜치 전략 및 코드 리뷰 진행
+
+**결과**: 주문 도메인을 담당하며 트랜잭션 처리 로직 설계 완료
+
+**기술 스택**: Java, Spring Boot, MySQL, Docker Compose
+
+📌 [프로젝트 상세보기](https://github.com/doublejh0501/Bookstore)
 
 <br>
 
 ---
 
-## 🤖 CLAUDE.md - AI Agent와의 협업
+## 🤖 CLAUDE.md로 팀 지식 관리
 
-**팀 회의 결정사항을 CLAUDE.md로 문서화하여 Claude Code가 팀 컨벤션을 이해하도록 함**
+팀 프로젝트에서 회의 결정사항(네이밍 규칙, 도메인 구조)을 CLAUDE.md로 문서화했습니다.
+Claude Code가 이 파일을 읽고 팀 컨벤션을 자동으로 반영한 코드를 생성합니다.
 
 ```markdown
 # CLAUDE.md 예시
