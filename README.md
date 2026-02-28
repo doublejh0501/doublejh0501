@@ -2,21 +2,21 @@
 
 > **기획부터 구현까지, AI 도구를 활용해 빠르게 실행하는 백엔드 개발자**
 >
-> 무신사 내부 API를 개발자 도구로 발굴하고, CLAUDE.md로 팀 지식을 관리합니다.
+> Chrome DevTools로 E-commerce 내부 API를 발굴하고, CLAUDE.md로 팀 지식을 관리합니다.
 > Docker Compose로 바로 실행 가능한 실용적인 코드를 작성합니다.
 
 <br>
 
 ## 🔥 대표 프로젝트
 
-### 1️⃣ 무신사 크롤링 시스템 (BE-Repository)
+### 1️⃣ 패션 E-commerce 크롤링 시스템 (BE-Repository)
 **소프트랩스 인턴 프로젝트 - 패션 블로그 자동 생성 시스템**
 
-**문제**: 무신사는 개인에게 API를 제공하지 않아서 패션 트렌드 데이터를 수집할 방법이 없었습니다.
+**문제**: 패션 쇼핑몰은 공개 API를 제공하지 않아서 트렌드 데이터를 수집할 방법이 없었습니다.
 
 **해결 과정**:
-1. Chrome DevTools Network 탭으로 무신사 사이트 상품 로딩 추적
-2. XHR 요청 중 JSON 응답 반환하는 내부 API 엔드포인트 발견 (`/api2/hm/web/v5/pans/ranking`)
+1. Chrome DevTools Network 탭으로 타겟 사이트 상품 로딩 추적
+2. XHR 요청 중 JSON 응답 반환하는 내부 API 엔드포인트 발견
 3. Headers 분석 (User-Agent, Cookie, Referer) 후 Postman으로 테스트
 4. Java RestClient로 구현
 5. 처음엔 연속 요청으로 서버 부하 발생 → 카테고리별 1초 지연 + HTTP 502/503 에러 발생 시 재시도 로직 (2초 후 최대 2회)
@@ -51,7 +51,7 @@
 **부트캠프 최종 프로젝트 (4명 팀) - 사용자 퀴즈 분석부터 AI 추천, 코디 이미지 생성까지 자동화**
 
 **나의 역할 (기여도 50%)**:
-- Product 도메인: 무신사 크롤링, 상품 DB 설계 (단독)
+- Product 도메인: 패션 상품 크롤링, 상품 DB 설계 (단독)
 - AI 서비스: Python FastAPI 전체 개발 (OpenAI, ChromaDB, 단독)
 - Recommendation 통합: Java와 Python 마이크로서비스 통합 (단독)
 
@@ -79,8 +79,8 @@
 - 이유: 정규화 대신 colors[] 저장하여 JOIN 불필요
 - 적용: Product 엔티티에 @Column(columnDefinition = "text[]")
 
-### 2025.11.22: 무신사 크롤링 시 1초 지연 필요
-- 이유: 봇 탐지 우회
+### 2025.11.22: 크롤링 시 1초 지연 필요
+- 이유: 서버 부하 방지 및 안정성 확보
 - 적용: Thread.sleep(1000)
 ```
 
