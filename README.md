@@ -12,9 +12,6 @@
 ### 1️⃣ 패션 E-commerce 크롤링 시스템 (BE-Repository)
 **소프트랩스 인턴 프로젝트 - 패션 블로그 자동 생성 시스템**
 
-![크롤링 시스템 구조](images/be-repository-architecture.png)
-<!-- 아키텍처 다이어그램을 images/be-repository-architecture.png에 업로드하세요 -->
-
 **문제**: 패션 쇼핑몰은 공개 API를 제공하지 않아서 트렌드 데이터를 수집할 방법이 없었습니다.
 
 **해결 과정**:
@@ -53,21 +50,12 @@
 ### 2️⃣ IPZY - AI 패션 코디 추천 서비스
 **부트캠프 최종 프로젝트 (4명 팀) - 사용자 퀴즈 분석부터 AI 추천, 코디 이미지 생성까지 자동화**
 
-![IPZY 메인 화면](images/ipzy-main.png)
-<!-- 메인 화면 스크린샷을 images/ipzy-main.png에 업로드하세요 -->
-
-![IPZY 추천 결과](images/ipzy-result.png)
-<!-- 추천 결과 화면을 images/ipzy-result.png에 업로드하세요 -->
-
 **나의 역할**:
 - Product 도메인: 패션 상품 크롤링, 상품 DB 설계 (단독)
 - AI 서비스: Python FastAPI 전체 개발 (OpenAI, ChromaDB, 단독)
 - Recommendation 통합: Java와 Python 마이크로서비스 통합 (단독)
 
 **시스템 아키텍처**
-
-![IPZY 아키텍처](images/ipzy-architecture.png)
-<!-- 아키텍처 다이어그램을 images/ipzy-architecture.png에 업로드하세요 -->
 
 ```
 ┌─────────────┐         ┌──────────────────┐         ┌─────────────────┐
@@ -162,15 +150,9 @@
 ### 3️⃣ NGS gamecamp - Steam 게임 판매 플랫폼
 **팀 프로젝트 (6명) - Steam API 연동 게임 정보 수집, 소셜 로그인, 결제 시스템**
 
-![NGS gamecamp 메인](images/ngs-main.png)
-<!-- 메인 화면을 images/ngs-main.png에 업로드하세요 -->
-
 **나의 역할: User, Security 모듈 (단독)**
 
 **핵심 1: JWT + OAuth2 인증 시스템**
-
-![인증 흐름도](images/ngs-auth-flow.png)
-<!-- 인증 흐름도를 images/ngs-auth-flow.png에 업로드하세요 -->
 
 기술 선택 배경:
 - JWT Stateless 선택 (Session 대신): 수평 확장 용이 (서버 간 세션 공유 불필요), Redis 불필요 (인프라 비용 절감)
@@ -211,9 +193,6 @@
 ### 4️⃣ Bookstore - Yes24 스타일 도서 판매 사이트
 **팀 프로젝트 (3명) - 온라인 서점 플랫폼**
 
-![Bookstore 메인](images/bookstore-main.png)
-<!-- 메인 화면을 images/bookstore-main.png에 업로드하세요 -->
-
 **나의 역할: 팀 리더 + Order 모듈 (단독)**
 
 **핵심 1: 팀 리더십 및 프로젝트 기획**
@@ -228,9 +207,6 @@
 - 코드 리뷰 프로세스 운영
 
 **핵심 2: Order 모듈 개발 - 주문/재고 트랜잭션 처리**
-
-![주문 프로세스](images/bookstore-order-flow.png)
-<!-- 주문 프로세스를 images/bookstore-order-flow.png에 업로드하세요 -->
 
 문제: 주문 생성, 재고 차감, 결제 처리가 동시에 일어나는데 원자성을 어떻게 보장할까?
 
@@ -258,12 +234,6 @@
 
 ### 5️⃣ TicketingPlatform - 공연 예매 플랫폼
 **팀 프로젝트 (5명) - 공연 정보 조회, 좌석 선택, 예매, 커뮤니티 기능**
-
-![TicketingPlatform 메인](images/ticketing-main.png)
-<!-- 메인 화면을 images/ticketing-main.png에 업로드하세요 -->
-
-![좌석 선택 UI](images/ticketing-seat.png)
-<!-- 좌석 선택 화면을 images/ticketing-seat.png에 업로드하세요 -->
 
 **나의 역할: 팀 리더 + Frontend Developer + Controller**
 
@@ -296,15 +266,9 @@
 ### 6️⃣ Lang잔고를 부탁해 - AI 대출 상담 챗봇
 **팀 프로젝트 (4명) - LangChain 기반 AI 대출 상담 챗봇**
 
-![챗봇 화면](images/loanchat-main.png)
-<!-- 챗봇 화면을 images/loanchat-main.png에 업로드하세요 -->
-
 **나의 역할: 팀 리더 + Compute Policies 모듈**
 
 **시스템 아키텍처**
-
-![LangChain 파이프라인](images/loanchat-architecture.png)
-<!-- 아키텍처를 images/loanchat-architecture.png에 업로드하세요 -->
 
 ```
 사용자 질문 → ChromaDB 검색 → LLM 응답 생성 → 금융 계산 엔진 → 대출 가능 여부 판단
