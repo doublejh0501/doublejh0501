@@ -12,6 +12,9 @@
 ### 1️⃣ 패션 E-commerce 크롤링 시스템 (BE-Repository)
 **소프트랩스 인턴 프로젝트 - 패션 블로그 자동 생성 시스템**
 
+![크롤링 시스템 구조](images/be-repository-architecture.png)
+<!-- 아키텍처 다이어그램을 images/be-repository-architecture.png에 업로드하세요 -->
+
 **문제**: 패션 쇼핑몰은 공개 API를 제공하지 않아서 트렌드 데이터를 수집할 방법이 없었습니다.
 
 **해결 과정**:
@@ -50,10 +53,37 @@
 ### 2️⃣ IPZY - AI 패션 코디 추천 서비스
 **부트캠프 최종 프로젝트 (4명 팀) - 사용자 퀴즈 분석부터 AI 추천, 코디 이미지 생성까지 자동화**
 
-**나의 역할 (기여도 50%)**:
+![IPZY 메인 화면](images/ipzy-main.png)
+<!-- 메인 화면 스크린샷을 images/ipzy-main.png에 업로드하세요 -->
+
+![IPZY 추천 결과](images/ipzy-result.png)
+<!-- 추천 결과 화면을 images/ipzy-result.png에 업로드하세요 -->
+
+**나의 역할**:
 - Product 도메인: 패션 상품 크롤링, 상품 DB 설계 (단독)
 - AI 서비스: Python FastAPI 전체 개발 (OpenAI, ChromaDB, 단독)
 - Recommendation 통합: Java와 Python 마이크로서비스 통합 (단독)
+
+**시스템 아키텍처**
+
+![IPZY 아키텍처](images/ipzy-architecture.png)
+<!-- 아키텍처 다이어그램을 images/ipzy-architecture.png에 업로드하세요 -->
+
+```
+┌─────────────┐         ┌──────────────────┐         ┌─────────────────┐
+│   Frontend  │────────▶│  Spring Boot     │────────▶│   FastAPI       │
+│   (React)   │         │  (Java 21)       │         │   (Python 3.11) │
+└─────────────┘         │                  │         │                 │
+                        │  - Product       │         │  - OpenAI API   │
+                        │  - Recommendation│         │  - ChromaDB     │
+                        │  - User          │         │  - Image Process│
+                        └─────────┬────────┘         └────────┬────────┘
+                                  │                           │
+                        ┌─────────▼────────┐       ┌─────────▼────────┐
+                        │   PostgreSQL 16  │       │    AWS S3        │
+                        │   (pgvector)     │       │  (이미지 저장)    │
+                        └──────────────────┘       └──────────────────┘
+```
 
 **핵심 1: CLAUDE.md 기반 팀 지식 관리 체계 구축**
 
@@ -132,9 +162,15 @@
 ### 3️⃣ NGS gamecamp - Steam 게임 판매 플랫폼
 **팀 프로젝트 (6명) - Steam API 연동 게임 정보 수집, 소셜 로그인, 결제 시스템**
 
-**나의 역할: User, Security 모듈 (단독, 기여도 16.6%)**
+![NGS gamecamp 메인](images/ngs-main.png)
+<!-- 메인 화면을 images/ngs-main.png에 업로드하세요 -->
+
+**나의 역할: User, Security 모듈 (단독)**
 
 **핵심 1: JWT + OAuth2 인증 시스템**
+
+![인증 흐름도](images/ngs-auth-flow.png)
+<!-- 인증 흐름도를 images/ngs-auth-flow.png에 업로드하세요 -->
 
 기술 선택 배경:
 - JWT Stateless 선택 (Session 대신): 수평 확장 용이 (서버 간 세션 공유 불필요), Redis 불필요 (인프라 비용 절감)
@@ -150,21 +186,19 @@
 - 발생 문제: 백엔드 인증 후 프론트엔드 리다이렉트 실패, 각 provider마다 리다이렉트 URL 형식 다름
 - 해결: OAuth2 성공 핸들러에서 프론트 URL로 JWT 포함 리다이렉트, 각 provider 콘솔에서 정확한 리다이렉트 URL 등록, 실행하며 문제 발견하고 즉시 수정 반복
 
-**핵심 2: 팔로우 기능 - 비즈니스 로직 설계 및 이중 방어**
+**핵심 2: 동시성 환경 팔로우 중복 방지**
 
-내가 설계한 로직:
-1. 중복 팔로우 방지
-2. 자가 팔로우 금지
-3. 존재하지 않는 사용자 팔로우 방지
+문제:
+- 같은 사용자를 동시에 여러 번 팔로우하면 중복 insert 가능성
+- 서비스 로직만으로는 동시 요청 시 중복 체크 통과
 
-이중 방어 전략:
-- DB 레벨: `@UniqueConstraint(columnNames = {"user_id", "target_type", "target_id"})` → 데이터 무결성 보장
+해결:
+- DB 제약: `@UniqueConstraint(columnNames = {"user_id", "target_type", "target_id"})` → 데이터 무결성 보장
 - 서비스 로직: `if (followRepository.existsByUserIdAndTargetTypeAndTargetId(...))` → 사용자 친화적 에러 메시지
 
-왜 이중 방어?
-- DB 제약만 사용하면 "Internal Server Error" 표시
-- 서비스 로직만 사용하면 동시성 문제 시 중복 데이터 삽입 가능
-- 둘 다 사용하면 안전성 + UX 모두 확보
+결과:
+- 동시 요청 상황에서도 중복 팔로우 방지
+- ConstraintViolationException 대신 명확한 에러 안내
 
 **테스트**: JUnit 5 + Mockito로 팔로우 서비스 단위 테스트, 중복 팔로우/자가 팔로우 예외 케이스 검증
 
@@ -177,7 +211,10 @@
 ### 4️⃣ Bookstore - Yes24 스타일 도서 판매 사이트
 **팀 프로젝트 (3명) - 온라인 서점 플랫폼**
 
-**나의 역할: 팀 리더 + Order 모듈 (단독, 기여도 33%)**
+![Bookstore 메인](images/bookstore-main.png)
+<!-- 메인 화면을 images/bookstore-main.png에 업로드하세요 -->
+
+**나의 역할: 팀 리더 + Order 모듈 (단독)**
 
 **핵심 1: 팀 리더십 및 프로젝트 기획**
 
@@ -191,6 +228,9 @@
 - 코드 리뷰 프로세스 운영
 
 **핵심 2: Order 모듈 개발 - 주문/재고 트랜잭션 처리**
+
+![주문 프로세스](images/bookstore-order-flow.png)
+<!-- 주문 프로세스를 images/bookstore-order-flow.png에 업로드하세요 -->
 
 문제: 주문 생성, 재고 차감, 결제 처리가 동시에 일어나는데 원자성을 어떻게 보장할까?
 
@@ -216,10 +256,59 @@
 
 <br>
 
-### 5️⃣ Lang잔고를 부탁해 - AI 대출 상담 챗봇
+### 5️⃣ TicketingPlatform - 공연 예매 플랫폼
+**팀 프로젝트 (5명) - 공연 정보 조회, 좌석 선택, 예매, 커뮤니티 기능**
+
+![TicketingPlatform 메인](images/ticketing-main.png)
+<!-- 메인 화면을 images/ticketing-main.png에 업로드하세요 -->
+
+![좌석 선택 UI](images/ticketing-seat.png)
+<!-- 좌석 선택 화면을 images/ticketing-seat.png에 업로드하세요 -->
+
+**나의 역할: 팀 리더 + Frontend Developer + Controller**
+
+**핵심 1: 팀 리더십**
+- 프로젝트 전체 구조 설계 및 도메인 분담 (Performance, Reservation, User, Community)
+- 기술 스택 선정 (Spring Boot 3.2.4, Java 17, Thymeleaf, H2)
+- Git 브랜치 전략 수립, 주간 회의 주도
+
+**핵심 2: 전역 UI/UX 체계 구축**
+- 전역 헤더, 푸터, 네비게이션 바 설계
+- 공통 CSS/JS 컴포넌트화로 화면 일관성 확보
+- 반응형 디자인 적용
+
+**핵심 3: 공연 예매 시스템 UI**
+- JavaScript 기반 동적 좌석 선택
+- 실시간 예약 상태 표시 (예약 가능/선택됨/예약 완료)
+- 공연 선택 → 좌석 선택 → 결제 → 완료 단계별 진행 표시
+
+**핵심 4: Spring Security 연동 프론트엔드**
+- Thymeleaf로 로그인/OAuth 버튼 및 폼 구현
+- CSRF 토큰 hidden input 처리
+- Security 태그로 권한별 메뉴 동적 표시/숨김
+
+**기술 스택**: Spring Boot 3.2.4, Java 17, Thymeleaf, H2, Spring Security, HTML5, CSS3, JavaScript ES6
+
+📌 [프로젝트 상세보기](https://github.com/jjunh0/TicketingPlatform)
+
+<br>
+
+### 6️⃣ Lang잔고를 부탁해 - AI 대출 상담 챗봇
 **팀 프로젝트 (4명) - LangChain 기반 AI 대출 상담 챗봇**
 
-**나의 역할: 팀 리더 + Compute Policies 모듈 (기여도 25%)**
+![챗봇 화면](images/loanchat-main.png)
+<!-- 챗봇 화면을 images/loanchat-main.png에 업로드하세요 -->
+
+**나의 역할: 팀 리더 + Compute Policies 모듈**
+
+**시스템 아키텍처**
+
+![LangChain 파이프라인](images/loanchat-architecture.png)
+<!-- 아키텍처를 images/loanchat-architecture.png에 업로드하세요 -->
+
+```
+사용자 질문 → ChromaDB 검색 → LLM 응답 생성 → 금융 계산 엔진 → 대출 가능 여부 판단
+```
 
 **핵심 1: 팀 리더십 및 문서화**
 
