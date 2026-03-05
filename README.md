@@ -235,6 +235,8 @@
 ### 5️⃣ TicketingPlatform - 공연 예매 플랫폼
 **팀 프로젝트 (5명) - 공연 정보 조회, 좌석 선택, 예매, 커뮤니티 기능**
 
+![TicketingPlatform 메인 화면](images/ticketing-main.png)
+
 **나의 역할: 팀 리더 + Frontend Developer + Controller**
 
 **핵심 1: 팀 리더십**
