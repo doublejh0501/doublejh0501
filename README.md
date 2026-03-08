@@ -297,6 +297,7 @@
 **핵심 2: Compute Policies 모듈 개발**
 
 구현:
+- 공공데이터 포털 API 연동: 금융 상품 및 대출 정책 데이터 수집
 - LTV (Loan To Value) 계산: 담보 대비 대출 비율
 - DTI (Debt To Income) 계산: 소득 대비 부채 상환 비율
 - DSR (Debt Service Ratio) 계산: 소득 대비 총 부채 상환 비율
