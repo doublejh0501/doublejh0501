@@ -1,9 +1,30 @@
-# 김재훈 (Jaehoon Kim)
+<div align="center">
+  <img src="images/profile.jpg" alt="Profile" width="200" style="border-radius: 50%; border: 4px solid #0366d6;" />
 
-> **기획부터 구현까지, AI 도구를 활용할 줄 아는 생산성 높은 개발자**
->
-> 요구사항을 명확히 파악하고 팀과 적극적으로 소통하며 문제를 해결합니다.
-> CLAUDE.md로 회의 결정사항을 문서화하여 협업 효율을 높이고, 기술적 난관에 유연하게 대처합니다.
+  # 김재훈 (Jaehoon Kim)
+
+  ### Backend Developer
+
+  [![Email](https://img.shields.io/badge/Email-jaehun1417@gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:jaehun1417@gmail.com)
+  [![GitHub](https://img.shields.io/badge/GitHub-doublejh0501-181717?style=flat-square&logo=github)](https://github.com/doublejh0501)
+  [![Phone](https://img.shields.io/badge/Phone-010--8801--9685-25D366?style=flat-square&logo=whatsapp&logoColor=white)](tel:010-8801-9685)
+
+  ![Java](https://img.shields.io/badge/Java_21-007396?style=flat-square&logo=java&logoColor=white)
+  ![Spring Boot](https://img.shields.io/badge/Spring_Boot_3.x-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+  ![Python](https://img.shields.io/badge/Python_3.11-3776AB?style=flat-square&logo=python&logoColor=white)
+  ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
+  ![PostgreSQL](https://img.shields.io/badge/PostgreSQL_16-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+  ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+
+  ---
+
+  ### 💡 "기획부터 구현까지, AI 도구를 활용할 줄 아는 생산성 높은 개발자"
+
+  요구사항을 명확히 파악하고 팀과 적극적으로 소통하며 문제를 해결합니다.
+
+  CLAUDE.md로 회의 결정사항을 문서화하여 협업 효율을 높이고, 기술적 난관에 유연하게 대처합니다.
+
+</div>
 
 <br>
 
@@ -47,26 +68,7 @@
 
 <br>
 
-### 2️⃣ Web Publisher / Frontend Developer - AI_solTech (에이아이솔텍)
-**2024.06 - 2024.08 (3개월) - 도박 중독 상담 사이트 퍼블리싱**
-
-![AI_solTech 노션 작업 관리](images/aisoltech-notion.png)
-
-**프로젝트 개요**
-- 도박 중독 상담 사이트 **400페이지 HTML/CSS 퍼블리싱**
-- 요구사항 정의서부터 화면설계서, 퍼블리싱까지 전체 프로세스 경험
-
-**주요 업무**
-- 대규모 웹사이트 퍼블리싱 (로그인, 회원가입, 메인, 검색상담자, 게시판 등)
-- Notion으로 400개 페이지 체계적 관리 및 진행상황 추적
-- 디자인팀과 협업하여 사용자 피드백 기반 UI 개선
-- 반응형 웹 디자인 적용 및 크로스 브라우저 호환성 확보
-
-**기술 스택**: HTML5, CSS3, JavaScript, Notion (프로젝트 관리)
-
-<br>
-
-### 3️⃣ IPZY - AI 패션 코디 추천 서비스
+### 2️⃣ IPZY - AI 패션 코디 추천 서비스
 **부트캠프 최종 프로젝트 (5명 팀) - 사용자 퀴즈 분석부터 AI 추천, 코디 이미지 생성까지 자동화**
 
 **나의 역할**:
@@ -166,7 +168,7 @@
 
 <br>
 
-### 4️⃣ NGS gamecamp - Steam 게임 판매 플랫폼
+### 3️⃣ NGS gamecamp - Steam 게임 판매 플랫폼
 **팀 프로젝트 (6명) - Steam API 연동 게임 정보 수집, 소셜 로그인, 결제 시스템**
 
 **나의 역할: User, Security 모듈 (단독)**
@@ -209,7 +211,7 @@
 
 <br>
 
-### 5️⃣ Bookstore - Yes24 스타일 도서 판매 사이트
+### 4️⃣ Bookstore - Yes24 스타일 도서 판매 사이트
 **팀 프로젝트 (3명) - 온라인 서점 플랫폼**
 
 **나의 역할: 팀 리더 + Order 모듈 (단독)**
@@ -251,40 +253,7 @@
 
 <br>
 
-### 6️⃣ TicketingPlatform - 공연 예매 플랫폼
-**팀 프로젝트 (5명) - 공연 정보 조회, 좌석 선택, 예매, 커뮤니티 기능**
-
-![TicketingPlatform 메인 화면](images/ticketing-main.png)
-
-**나의 역할: 팀 리더 + Frontend Developer + Controller**
-
-**핵심 1: 팀 리더십**
-- 프로젝트 전체 구조 설계 및 도메인 분담 (Performance, Reservation, User, Community)
-- 기술 스택 선정 (Spring Boot 3.2.4, Java 17, Thymeleaf, H2)
-- Git 브랜치 전략 수립, 주간 회의 주도
-
-**핵심 2: 전역 UI/UX 체계 구축**
-- 전역 헤더, 푸터, 네비게이션 바 설계
-- 공통 CSS/JS 컴포넌트화로 화면 일관성 확보
-- 반응형 디자인 적용
-
-**핵심 3: 공연 예매 시스템 UI**
-- JavaScript 기반 동적 좌석 선택
-- 실시간 예약 상태 표시 (예약 가능/선택됨/예약 완료)
-- 공연 선택 → 좌석 선택 → 결제 → 완료 단계별 진행 표시
-
-**핵심 4: Spring Security 연동 프론트엔드**
-- Thymeleaf로 로그인/OAuth 버튼 및 폼 구현
-- CSRF 토큰 hidden input 처리
-- Security 태그로 권한별 메뉴 동적 표시/숨김
-
-**기술 스택**: Spring Boot 3.2.4, Java 17, Thymeleaf, H2, Spring Security, HTML5, CSS3, JavaScript ES6
-
-📌 [프로젝트 상세보기](https://github.com/jjunh0/TicketingPlatform)
-
-<br>
-
-### 7️⃣ Lang잔고를 부탁해 - AI 대출 상담 챗봇
+### 5️⃣ Lang잔고를 부탁해 - AI 대출 상담 챗봇
 **팀 프로젝트 (4명) - LangChain 기반 AI 대출 상담 챗봇**
 
 **나의 역할: 팀 리더 + Compute Policies 모듈**
@@ -326,6 +295,58 @@
 기술 스택: Python 3.11, LangChain, LangGraph, ChromaDB, FastAPI
 
 📌 [프로젝트 상세보기](https://github.com/doublejh0501/Loanchat_dev)
+
+<br>
+
+### 6️⃣ Web Publisher / Frontend Developer - AI_solTech (에이아이솔텍)
+**2024.06 - 2024.08 (3개월) - 도박 중독 상담 사이트 퍼블리싱**
+
+![AI_solTech 노션 작업 관리](images/aisoltech-notion.png)
+
+**프로젝트 개요**
+- 도박 중독 상담 사이트 **400페이지 HTML/CSS 퍼블리싱**
+- 요구사항 정의서부터 화면설계서, 퍼블리싱까지 전체 프로세스 경험
+
+**주요 업무**
+- 대규모 웹사이트 퍼블리싱 (로그인, 회원가입, 메인, 검색상담자, 게시판 등)
+- Notion으로 400개 페이지 체계적 관리 및 진행상황 추적
+- 디자인팀과 협업하여 사용자 피드백 기반 UI 개선
+- 반응형 웹 디자인 적용 및 크로스 브라우저 호환성 확보
+
+**기술 스택**: HTML5, CSS3, JavaScript, Notion (프로젝트 관리)
+
+<br>
+
+### 7️⃣ TicketingPlatform - 공연 예매 플랫폼
+**팀 프로젝트 (5명) - 공연 정보 조회, 좌석 선택, 예매, 커뮤니티 기능**
+
+![TicketingPlatform 메인 화면](images/ticketing-main.png)
+
+**나의 역할: 팀 리더 + Frontend Developer + Controller**
+
+**핵심 1: 팀 리더십**
+- 프로젝트 전체 구조 설계 및 도메인 분담 (Performance, Reservation, User, Community)
+- 기술 스택 선정 (Spring Boot 3.2.4, Java 17, Thymeleaf, H2)
+- Git 브랜치 전략 수립, 주간 회의 주도
+
+**핵심 2: 전역 UI/UX 체계 구축**
+- 전역 헤더, 푸터, 네비게이션 바 설계
+- 공통 CSS/JS 컴포넌트화로 화면 일관성 확보
+- 반응형 디자인 적용
+
+**핵심 3: 공연 예매 시스템 UI**
+- JavaScript 기반 동적 좌석 선택
+- 실시간 예약 상태 표시 (예약 가능/선택됨/예약 완료)
+- 공연 선택 → 좌석 선택 → 결제 → 완료 단계별 진행 표시
+
+**핵심 4: Spring Security 연동 프론트엔드**
+- Thymeleaf로 로그인/OAuth 버튼 및 폼 구현
+- CSRF 토큰 hidden input 처리
+- Security 태그로 권한별 메뉴 동적 표시/숨김
+
+**기술 스택**: Spring Boot 3.2.4, Java 17, Thymeleaf, H2, Spring Security, HTML5, CSS3, JavaScript ES6
+
+📌 [프로젝트 상세보기](https://github.com/jjunh0/TicketingPlatform)
 
 <br>
 
@@ -430,11 +451,47 @@ src/main/java/io/github/cryschan/berepository/
 
 ---
 
+## 🎓 학력
+
+**패스트캠퍼스 AI융합 백엔드 개발 부트캠프**
+- 📅 2025.06 - 2025.12 | 서울 강남
+- 6개월 풀타임 과정 (Java, Spring Boot, Python, AI)
+- 5개 팀 프로젝트 수행 (팀 리더 3회)
+- Git 기반 협업 및 코드 리뷰 경험
+
+**강원대학교 컴퓨터공학 학사 졸업**
+- 📅 2019.03 - 2025.08 | 강원 춘천
+
+<br>
+
+## 📜 자격증
+
+[![SQLD](https://img.shields.io/badge/SQLD-SQL_개발자-4479A1?style=flat-square&logo=database&logoColor=white)](https://www.dataq.or.kr/)
+[![정보처리기사](https://img.shields.io/badge/정보처리기사-Engineer_Information_Processing-FF6B6B?style=flat-square&logo=codeproject&logoColor=white)](https://www.q-net.or.kr/)
+
+- **SQLD** (SQL 개발자) - 2025
+- **정보처리기사** - 2025
+
+<br>
+
+## 🌐 어학
+
+- **TOEIC 870점** (2024)
+- 영문 기술 문서 독해 가능
+
+<br>
+
+---
+
 ## 📬 연락처
 
-- **Email**: jaehun1417@gmail.com
-- **GitHub**: [@doublejh0501](https://github.com/doublejh0501)
-- **Phone**: 010-8801-9685
+<div align="center">
+
+  [![Email](https://img.shields.io/badge/Email-jaehun1417@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jaehun1417@gmail.com)
+  [![GitHub](https://img.shields.io/badge/GitHub-doublejh0501-181717?style=for-the-badge&logo=github)](https://github.com/doublejh0501)
+  [![Phone](https://img.shields.io/badge/Phone-010--8801--9685-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](tel:010-8801-9685)
+
+</div>
 
 <br>
 
@@ -442,8 +499,20 @@ src/main/java/io/github/cryschan/berepository/
 
 ## 📊 GitHub Stats
 
-![doublejh0501's GitHub stats](https://github-readme-stats.vercel.app/api?username=doublejh0501&show_icons=true&theme=radical)
+<div align="center">
+
+![doublejh0501's GitHub stats](https://github-readme-stats.vercel.app/api?username=doublejh0501&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117)
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=doublejh0501&layout=compact&theme=radical&hide_border=true&bg_color=0D1117)
+
+</div>
 
 ---
 
+<div align="center">
+
 **💡 Tip**: 위 프로젝트들은 모두 실제 운영 가능한 코드이며, Docker Compose로 로컬 실행 가능합니다.
+
+**⭐️ 이 README가 도움이 되셨다면 Star를 눌러주세요!**
+
+</div>
