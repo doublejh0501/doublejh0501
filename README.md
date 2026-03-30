@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![프로필 사진](images/profile.jpg)
+<img src="images/profile.jpg" alt="프로필 사진" width="200px">
 
 **CLAUDE.md로 팀 지식을 관리하고, AI 도구를 활용해 생산성을 높이는 백엔드 개발자입니다.**
 
