@@ -2,8 +2,7 @@
 
 <div align="center">
 
-![프로필 이미지 위치](images/profile.png)
-<!-- 프로필 사진을 images/profile.png 경로에 업로드하세요 -->
+![프로필 사진](images/profile.jpg)
 
 **CLAUDE.md로 팀 지식을 관리하고, AI 도구를 활용해 생산성을 높이는 백엔드 개발자입니다.**
 
@@ -34,163 +33,11 @@
 ## 🚀 Projects
 
 ### 1. IPZY - AI 패션 코디 추천 서비스
-**2026.03 (2주) | 개인 프로젝트**
+**2025.11 - 2025.12 | 팀 프로젝트 (5명) | 부트캠프 최종 프로젝트**
 
-> Reactive Programming 학습 및 면접 대비를 위한 개발 용어 퀴즈 플랫폼
-
-![Dev Quiz 메인](images/devquiz-main.png)
-<!-- 메인 화면 스크린샷을 images/devquiz-main.png에 업로드하세요 -->
-
-#### 프로젝트 개요
-면접 준비를 위한 개발 용어 학습 플랫폼. Spring WebFlux + R2DBC로 Reactive Programming 실습.
+> 사용자 퀴즈 분석부터 AI 추천, 코디 이미지 생성까지 자동화하는 플랫폼
 
 #### 시스템 아키텍처
-
-```
-┌─────────────┐         ┌──────────────────┐         ┌─────────────────┐
-│   Next.js   │────────▶│  Spring WebFlux  │────────▶│  PostgreSQL     │
-│ (TypeScript)│         │  (Kotlin)        │         │  (R2DBC)        │
-└─────────────┘         │                  │         │                 │
-                        │  - REST API      │         │  - 6 카테고리   │
-                        │  - Reactive      │         │  - 42 문제      │
-                        └─────────┬────────┘         └─────────────────┘
-                                  │
-                        ┌─────────▼────────┐
-                        │     Redis        │
-                        │   (캐싱)         │
-                        └──────────────────┘
-```
-
-#### 주요 기능
-
-**1. Reactive Programming (Spring WebFlux + R2DBC)**
-
-기술 선택:
-- **Spring WebFlux**: 비동기 논블로킹 I/O, Reactive Streams (Mono, Flux)
-- **R2DBC**: Reactive Database 드라이버, 비동기 쿼리 실행
-
-구현:
-```kotlin
-@GetMapping("/api/quizzes")
-fun getAllQuizzes(): Flux<QuizResponse> {
-    return quizRepository.findAll()
-        .map { it.toResponse() }
-        .limitRate(10) // 백프레셔 관리
-}
-```
-
-결과:
-- 동시성 처리 향상 (메모리 효율적)
-- 비동기 논블로킹으로 응답 속도 개선
-
-**2. TypeScript + Kotlin 타입 안정성**
-
-![타입 시스템](images/devquiz-types.png)
-<!-- 타입 시스템 예시를 images/devquiz-types.png에 업로드하세요 -->
-
-```typescript
-// TypeScript
-interface QuizResponse {
-  id: number;
-  question: string;
-  options: string[];
-  correctAnswer: string;
-  category: string;
-}
-```
-
-```kotlin
-// Kotlin
-data class QuizResponse(
-    val id: Long,
-    val question: String,
-    val options: List<String>,
-    val correctAnswer: String,
-    val category: String
-)
-```
-
-결과:
-- 양방향 타입 체크로 런타임 에러 최소화
-- API 변경 시 컴파일 타임 에러로 조기 발견
-
-**3. 테스트 주도 개발 (TDD)**
-
-```kotlin
-@Test
-fun `퀴즈 조회 API 테스트`() {
-    webTestClient.get()
-        .uri("/api/quizzes/1")
-        .exchange()
-        .expectStatus().isOk
-        .expectBody<QuizResponse>()
-        .consumeWith { response ->
-            assertThat(response.responseBody?.id).isEqualTo(1)
-        }
-}
-```
-
-테스트 커버리지:
-- 10개 단위 테스트 (JUnit 5 + MockK)
-- WebTestClient로 비동기 API 통합 테스트
-
-**4. Next.js 15 App Router**
-
-![Next.js 구조](images/devquiz-nextjs.png)
-<!-- Next.js 구조를 images/devquiz-nextjs.png에 업로드하세요 -->
-
-```
-app/
-├── page.tsx (메인 페이지)
-├── quiz/
-│   └── [category]/
-│       └── page.tsx (카테고리별 퀴즈)
-└── layout.tsx (공통 레이아웃)
-```
-
-특징:
-- Server Components 기본 지원 (성능 향상)
-- 동적 라우팅 간소화
-- TailwindCSS 반응형 디자인
-
-#### Tech Stack
-- **Backend**: Kotlin, Spring Boot 3.2, WebFlux, R2DBC, PostgreSQL 16, Redis 7
-- **Frontend**: Next.js 15, TypeScript, TailwindCSS
-- **Testing**: JUnit 5, MockK (10개 테스트)
-- **Documentation**: Swagger UI (SpringDoc OpenAPI)
-- **Infrastructure**: Docker Compose
-
-#### 프로젝트 규모
-- Backend: 1,700+ 라인 (Kotlin)
-- Frontend: 800+ 라인 (TypeScript)
-- 6개 REST API 엔드포인트
-- 6개 카테고리, 42개 샘플 데이터
-
-#### GitHub
-[Repository](https://github.com/doublejh0501/quizdispensor)
-
----
-
-### 2. Dev Quiz - 개발 용어 퀴즈 플랫폼
-**2026.03 (2주) | 개인 프로젝트**
-
-> Reactive Programming 학습 및 면접 대비를 위한 개발 용어 퀴즈 플랫폼
-
-![IPZY 메인 화면](images/ipzy-main.png)
-<!-- 메인 화면 스크린샷을 images/ipzy-main.png에 업로드하세요 -->
-
-![IPZY 추천 결과](images/ipzy-result.png)
-<!-- 추천 결과 화면 스크린샷을 images/ipzy-result.png에 업로드하세요 -->
-
-#### 나의 역할
-- **Product 도메인**: 패션 상품 크롤링, 상품 DB 설계 (단독)
-- **AI 서비스**: Python FastAPI 전체 개발 (OpenAI, ChromaDB, 단독)
-- **Recommendation 통합**: Java와 Python 마이크로서비스 통합 (단독)
-
-#### 시스템 아키텍처
-
-![IPZY 아키텍처](images/ipzy-architecture.png)
-<!-- 아키텍처 다이어그램을 images/ipzy-architecture.png에 업로드하세요 -->
 
 ```
 ┌─────────────┐         ┌──────────────────┐         ┌─────────────────┐
@@ -207,6 +54,11 @@ app/
                         │   (pgvector)     │       │  (이미지 저장)    │
                         └──────────────────┘       └──────────────────┘
 ```
+
+#### 나의 역할
+- **Product 도메인**: 패션 상품 크롤링, 상품 DB 설계 (단독)
+- **AI 서비스**: Python FastAPI 전체 개발 (OpenAI, ChromaDB, 단독)
+- **Recommendation 통합**: Java와 Python 마이크로서비스 통합 (단독)
 
 #### 핵심 기능
 
@@ -265,13 +117,141 @@ app/
 
 ---
 
+### 2. Dev Quiz - 개발 용어 퀴즈 플랫폼
+**2026.03 (2주) | 개인 프로젝트**
+
+> Reactive Programming 학습 및 면접 대비를 위한 개발 용어 퀴즈 플랫폼
+
+![Dev Quiz 메인 화면](images/devquiz-main.png)
+
+#### 프로젝트 개요
+면접 준비를 위한 개발 용어 학습 플랫폼. Spring WebFlux + R2DBC로 Reactive Programming 실습.
+
+#### 시스템 아키텍처
+
+```
+┌─────────────┐         ┌──────────────────┐         ┌─────────────────┐
+│   Next.js   │────────▶│  Spring WebFlux  │────────▶│  PostgreSQL     │
+│ (TypeScript)│         │  (Kotlin)        │         │  (R2DBC)        │
+└─────────────┘         │                  │         │                 │
+                        │  - REST API      │         │  - 6 카테고리   │
+                        │  - Reactive      │         │  - 42 문제      │
+                        └─────────┬────────┘         └─────────────────┘
+                                  │
+                        ┌─────────▼────────┐
+                        │     Redis        │
+                        │   (캐싱)         │
+                        └──────────────────┘
+```
+
+#### 주요 기능
+
+**1. Reactive Programming (Spring WebFlux + R2DBC)**
+
+기술 선택:
+- **Spring WebFlux**: 비동기 논블로킹 I/O, Reactive Streams (Mono, Flux)
+- **R2DBC**: Reactive Database 드라이버, 비동기 쿼리 실행
+
+구현:
+```kotlin
+@GetMapping("/api/quizzes")
+fun getAllQuizzes(): Flux<QuizResponse> {
+    return quizRepository.findAll()
+        .map { it.toResponse() }
+        .limitRate(10) // 백프레셔 관리
+}
+```
+
+결과:
+- 동시성 처리 향상 (메모리 효율적)
+- 비동기 논블로킹으로 응답 속도 개선
+
+**2. TypeScript + Kotlin 타입 안정성**
+
+```typescript
+// TypeScript
+interface QuizResponse {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  category: string;
+}
+```
+
+```kotlin
+// Kotlin
+data class QuizResponse(
+    val id: Long,
+    val question: String,
+    val options: List<String>,
+    val correctAnswer: String,
+    val category: String
+)
+```
+
+결과:
+- 양방향 타입 체크로 런타임 에러 최소화
+- API 변경 시 컴파일 타임 에러로 조기 발견
+
+**3. 테스트 주도 개발 (TDD)**
+
+```kotlin
+@Test
+fun `퀴즈 조회 API 테스트`() {
+    webTestClient.get()
+        .uri("/api/quizzes/1")
+        .exchange()
+        .expectStatus().isOk
+        .expectBody<QuizResponse>()
+        .consumeWith { response ->
+            assertThat(response.responseBody?.id).isEqualTo(1)
+        }
+}
+```
+
+테스트 커버리지:
+- 10개 단위 테스트 (JUnit 5 + MockK)
+- WebTestClient로 비동기 API 통합 테스트
+
+**4. Next.js 15 App Router**
+
+```
+app/
+├── page.tsx (메인 페이지)
+├── quiz/
+│   └── [category]/
+│       └── page.tsx (카테고리별 퀴즈)
+└── layout.tsx (공통 레이아웃)
+```
+
+특징:
+- Server Components 기본 지원 (성능 향상)
+- 동적 라우팅 간소화
+- TailwindCSS 반응형 디자인
+
+#### Tech Stack
+- **Backend**: Kotlin, Spring Boot 3.2, WebFlux, R2DBC, PostgreSQL 16, Redis 7
+- **Frontend**: Next.js 15, TypeScript, TailwindCSS
+- **Testing**: JUnit 5, MockK (10개 테스트)
+- **Documentation**: Swagger UI (SpringDoc OpenAPI)
+- **Infrastructure**: Docker Compose
+
+#### 프로젝트 규모
+- Backend: 1,700+ 라인 (Kotlin)
+- Frontend: 800+ 라인 (TypeScript)
+- 6개 REST API 엔드포인트
+- 6개 카테고리, 42개 샘플 데이터
+
+#### GitHub
+[Repository](https://github.com/doublejh0501/quizdispensor)
+
+---
+
 ### 3. NGS gamecamp - Steam 게임 판매 플랫폼
 **2025.09 - 2025.10 | 팀 프로젝트 (6명)**
 
 > Steam API 연동 게임 정보 수집 + 소셜 로그인 + 결제 시스템
-
-![NGS gamecamp 메인](images/ngs-main.png)
-<!-- 메인 화면 스크린샷을 images/ngs-main.png에 업로드하세요 -->
 
 #### 나의 역할
 User, Security 모듈 (단독)
@@ -279,9 +259,6 @@ User, Security 모듈 (단독)
 #### 주요 기능
 
 **1. JWT + OAuth2 인증 시스템**
-
-![인증 흐름도](images/ngs-auth-flow.png)
-<!-- 인증 흐름도를 images/ngs-auth-flow.png에 업로드하세요 -->
 
 기술 선택:
 - **JWT Stateless**: 수평 확장 용이, Redis 불필요
@@ -324,9 +301,6 @@ if (followRepository.existsByUserIdAndTargetTypeAndTargetId(...)) {
 
 > 온라인 서점 플랫폼
 
-![Bookstore 메인](images/bookstore-main.png)
-<!-- 메인 화면 스크린샷을 images/bookstore-main.png에 업로드하세요 -->
-
 #### 나의 역할
 팀 리더 + Order 모듈 (단독)
 
@@ -339,9 +313,6 @@ if (followRepository.existsByUserIdAndTargetTypeAndTargetId(...)) {
 - 주간 회의 주도, 코드 리뷰 프로세스 운영
 
 **2. Order 모듈 - 주문-재고 트랜잭션 처리**
-
-![주문 프로세스](images/bookstore-order-flow.png)
-<!-- 주문 프로세스 다이어그램을 images/bookstore-order-flow.png에 업로드하세요 -->
 
 ```java
 @Transactional
@@ -379,11 +350,7 @@ public Order createOrder(OrderRequest request) {
 
 > 공연 정보 조회, 좌석 선택, 예매, 커뮤니티 기능
 
-![TicketingPlatform 메인](images/ticketing-main.png)
-<!-- 메인 화면 스크린샷을 images/ticketing-main.png에 업로드하세요 -->
-
-![좌석 선택 UI](images/ticketing-seat.png)
-<!-- 좌석 선택 화면을 images/ticketing-seat.png에 업로드하세요 -->
+![TicketingPlatform 메인 화면](images/ticketing-main.png)
 
 #### 나의 역할
 팀 리더 + Frontend Developer + Controller
@@ -424,16 +391,10 @@ public Order createOrder(OrderRequest request) {
 
 > LangChain 기반 AI 대출 상담 챗봇
 
-![챗봇 화면](images/loanchat-main.png)
-<!-- 챗봇 화면을 images/loanchat-main.png에 업로드하세요 -->
-
 #### 나의 역할
 팀 리더 + Compute Policies 모듈
 
 #### 시스템 아키텍처
-
-![LangChain 파이프라인](images/loanchat-architecture.png)
-<!-- 아키텍처를 images/loanchat-architecture.png에 업로드하세요 -->
 
 ```
 사용자 질문 → ChromaDB 검색 → LLM 응답 생성 → 금융 계산 엔진 → 대출 가능 여부 판단
@@ -533,7 +494,6 @@ public Order createOrder(OrderRequest request) {
 
 ## 📜 Certifications
 
-- AWS Certified Solutions Architect - Associate (2025)
 - SQLD (SQL 개발자) (2025)
 - 정보처리기사 (2025)
 
@@ -555,4 +515,4 @@ public Order createOrder(OrderRequest request) {
 
 ---
 
-**최종 업데이트**: 2026.03.27
+**최종 업데이트**: 2026.03.30
