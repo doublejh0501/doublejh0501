@@ -8,31 +8,29 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-doublejh0501-181717?style=flat&logo=github)](https://github.com/doublejh0501)
 [![Email](https://img.shields.io/badge/Email-jaehun1417@gmail.com-EA4335?style=flat&logo=gmail)](mailto:jaehun1417@gmail.com)
-[![TOEIC](https://img.shields.io/badge/TOEIC-870-0052CC?style=flat)]()
 
 </div>
 
 ---
 
-## 💼 Work Experience
+## 🚀 Projects
 
-### Backend Developer Intern | 소프트랩스 (SoftLabs)
-**2025.11 - 2025.12 (2개월)**
+### 1. Backend Developer Intern | 소프트랩스 (SoftLabs)
+**2025.11 - 2025.12 (2개월) | 팀 프로젝트 (5명) | 실무 인턴십**
 
-패션 블로그 자동 생성 시스템 개발 (Fashion 크롤링, AI 통합, BlogTemplate 도메인)
+> 패션 블로그 자동 생성 시스템 개발 (Fashion 크롤링, AI 통합, BlogTemplate 도메인)
 
-**주요 성과**
-- Chrome DevTools로 E-commerce 내부 API 발굴, 상품 데이터 수집 시스템 구축
-- PostgreSQL 배열 타입으로 다중 값 저장 제안 및 적용 (정규화 없이 JOIN 불필요)
-- AWS EC2 t3.small 선정, Docker 기반 배포 구성
+#### 주요 성과
+- **Chrome DevTools로 E-commerce 내부 API 발굴**: XHR 요청 분석하여 JSON API 엔드포인트 발견, Java RestClient로 구현
+- **PostgreSQL 배열 타입 제안 및 적용**: 정규화 없이 `colors[]`, `seasons[]` 저장하여 JOIN 불필요
+- **AWS EC2 배포 전체 담당**: 팀 5명 배포 가이드 작성, t3.small 인스턴스 선정 (t2.micro OOM 해결), Docker 이미지 빌드 자동화
 
-**Tech Stack**: Spring Boot 3.5.7, Java 21, PostgreSQL 16, Spring AI, JSoup, RestClient, AWS EC2, Docker
+#### Tech Stack
+- Spring Boot 3.5.7, Java 21, PostgreSQL 16, Spring AI, JSoup, RestClient, AWS EC2, Docker
 
 ---
 
-## 🚀 Projects
-
-### 1. IPZY - AI 패션 코디 추천 서비스
+### 2. IPZY - AI 패션 코디 추천 서비스
 **2025.11 - 2025.12 | 팀 프로젝트 (5명) | 부트캠프 최종 프로젝트**
 
 > 사용자 퀴즈 분석부터 AI 추천, 코디 이미지 생성까지 자동화하는 플랫폼
@@ -103,11 +101,16 @@
 - TreeSet으로 중복 조합 회피
 - 타임아웃 설정 (연결 5초, 읽기 60초)
 
+#### 배포 및 운영
+- AWS EC2 배포 전체 담당 (팀원 배포 가이드 작성)
+- Docker Compose로 Java/Python 마이크로서비스 통합 배포
+- 환경 변수 관리 (.env), AWS S3 이미지 저장소 구성
+
 #### Tech Stack
 - **Backend**: Spring Boot 3.2.0, Java 21, PostgreSQL 16 (pgvector)
 - **AI Service**: FastAPI 0.109.0, Python 3.11, OpenAI API, ChromaDB
 - **Image**: Pillow, rembg (U2-Net)
-- **Infrastructure**: Docker Compose, AWS S3
+- **Infrastructure**: AWS EC2, Docker Compose, AWS S3
 - **Frontend**: React 19, TypeScript 5.9, Vercel
 - **Testing**: JUnit 5, Mockito, pytest
 
@@ -117,7 +120,97 @@
 
 ---
 
-### 2. Dev Quiz - 개발 용어 퀴즈 플랫폼
+### 3. Musinsa Price Tracker - 무신사 가격 추적 시스템
+**2026.03 (1주) | 개인 프로젝트**
+
+> 소프트랩스 Java 크롤링 경험을 Node.js로 재구현 (FETCHING 지원 대비)
+
+#### 프로젝트 개요
+소프트랩스 인턴에서 Java로 패션 크롤링을 경험한 후, Node.js 생태계 학습을 위해 같은 도메인(무신사 크롤링)을 NestJS로 재구현한 프로젝트.
+
+**목표**: Java와 Node.js의 비동기 처리 방식 차이를 실전으로 학습
+
+#### 시스템 아키텍처
+
+```
+┌─────────────┐         ┌──────────────────┐         ┌─────────────────┐
+│   Crawler   │────────▶│     NestJS       │────────▶│     MySQL       │
+│  (Axios)    │         │  (TypeScript)    │         │  (TypeORM)      │
+└─────────────┘         │                  │         │                 │
+                        │  - Products API  │         │  - products     │
+                        │  - Crawler API   │         │  - price_history│
+                        └──────────────────┘         └─────────────────┘
+```
+
+#### 주요 기능
+
+**1. 무신사 API 리버스 엔지니어링**
+
+초기 시도 (실패):
+- Puppeteer 헤드리스 브라우저로 HTML 파싱
+- 무신사 SPA 구조로 변경되어 동적 렌더링 실패
+- 느리고 복잡함
+
+최종 구현 (성공):
+```typescript
+// Chrome DevTools로 발견한 무신사 내부 API
+const apiUrl = 'https://api.musinsa.com/api2/dp/v2/plp/goods?brand=nike&category=103';
+const response = await axios.get(apiUrl);
+const products = response.data.data.list; // 30개 상품
+```
+
+성과:
+- 30개 나이키 신발 실시간 수집 (에어맥스, 에어조던 등)
+- Puppeteer 대비 10배 빠른 응답 속도
+
+**2. 가격 변동 추적 시스템**
+
+문제: 매번 히스토리 저장 시 불필요한 데이터 증가
+
+해결:
+```typescript
+// 가격이 실제로 변경되었을 때만 히스토리 저장
+if (product.price !== productData.price) {
+  await this.createHistory(product); // 변동 시에만 저장
+}
+```
+
+성과:
+- 아스트로그래버: 139,000원 → 125,100원 (10% 할인 감지)
+- 불필요한 데이터 저장 방지
+
+**3. Java vs Node.js 비교**
+
+| 항목 | Java (소프트랩스) | Node.js (이 프로젝트) |
+|------|------------------|---------------------|
+| HTTP | RestClient | Axios |
+| 파싱 | JSoup | 무신사 API 직접 호출 |
+| I/O | 블로킹 | 논블로킹 (async/await) |
+| 프레임워크 | Spring Boot | NestJS |
+| ORM | JPA | TypeORM |
+
+학습 포인트:
+- **블로킹 vs 논블로킹**: Java는 응답 대기 중 스레드 block, Node.js는 이벤트 루프가 다른 작업 처리
+- **async/await**: 비동기 코드를 동기처럼 작성 가능
+- **NestJS**: Spring Boot와 유사한 DI, Module 구조
+
+#### Tech Stack
+- **Backend**: NestJS, TypeScript, TypeORM, MySQL 8.0
+- **Crawler**: Axios, 무신사 API
+- **Infrastructure**: Docker Compose
+- **Documentation**: Swagger UI
+
+#### 프로젝트 규모
+- Backend: 800+ 라인 (TypeScript)
+- REST API: 6개 엔드포인트
+- 30개 상품 추적, 가격 히스토리 자동 관리
+
+#### GitHub
+[Repository](https://github.com/doublejh0501/musinsa-price-tracker)
+
+---
+
+### 4. Dev Quiz - 개발 용어 퀴즈 플랫폼
 **2026.03 (2주) | 개인 프로젝트**
 
 > Reactive Programming 학습 및 면접 대비를 위한 개발 용어 퀴즈 플랫폼
@@ -211,8 +304,11 @@ fun `퀴즈 조회 API 테스트`() {
 ```
 
 테스트 커버리지:
-- 10개 단위 테스트 (JUnit 5 + MockK)
+- 7개 테스트 메서드 (QuestionServiceTest)
+- JUnit 5 + MockK 단위 테스트
+- Reactive 비동기 테스트 (StepVerifier로 Mono/Flux 검증)
 - WebTestClient로 비동기 API 통합 테스트
+- Repository 모킹 및 Service 계층 단위 테스트
 
 **4. Next.js 15 App Router**
 
@@ -248,7 +344,7 @@ app/
 
 ---
 
-### 3. NGS gamecamp - Steam 게임 판매 플랫폼
+### 5. NGS gamecamp - Steam 게임 판매 플랫폼
 **2025.09 - 2025.10 | 팀 프로젝트 (6명)**
 
 > Steam API 연동 게임 정보 수집 + 소셜 로그인 + 결제 시스템
@@ -287,6 +383,12 @@ if (followRepository.existsByUserIdAndTargetTypeAndTargetId(...)) {
 
 결과: 동시 요청에도 중복 방지 + 명확한 에러 메시지
 
+#### 테스트
+- 29개 테스트 파일 (Service, Controller, Repository 계층)
+- JUnit 5 + Mockito 단위 테스트
+- OAuth2 인증 통합 테스트 (Google, Kakao, Naver)
+- 팔로우 서비스, 주문/결제 통합 테스트
+
 #### Tech Stack
 - Spring Boot 3.5.5, Java 21, MySQL 8.0, JWT, OAuth2
 - Testing: JUnit 5, Mockito
@@ -296,7 +398,7 @@ if (followRepository.existsByUserIdAndTargetTypeAndTargetId(...)) {
 
 ---
 
-### 4. Bookstore - Yes24 스타일 도서 판매 사이트
+### 6. Bookstore - Yes24 스타일 도서 판매 사이트
 **2025.08 - 2025.10 | 팀 프로젝트 (3명)**
 
 > 온라인 서점 플랫폼
@@ -336,6 +438,12 @@ public Order createOrder(OrderRequest request) {
 
 결과: 동시성 문제 없이 데이터 일관성 유지
 
+#### 테스트
+- OrderServiceTest: 15개 테스트 메서드
+- JUnit 5 + Mockito (ArgumentCaptor로 메서드 호출 검증)
+- 트랜잭션 통합 테스트 (주문-결제-재고 연계)
+- 결제 실패 시 롤백 검증, 재고 부족 등 edge case 커버
+
 #### Tech Stack
 - Spring Boot 3.5, Java 21, MySQL 8.0, Redis 7, KakaoPay API
 - Testing: JUnit 5, Mockito
@@ -345,7 +453,7 @@ public Order createOrder(OrderRequest request) {
 
 ---
 
-### 5. TicketingPlatform - 공연 예매 플랫폼
+### 7. TicketingPlatform - 공연 예매 플랫폼
 **2024.09 - 2024.12 | 팀 프로젝트 (5명)**
 
 > 공연 정보 조회, 좌석 선택, 예매, 커뮤니티 기능
@@ -386,7 +494,7 @@ public Order createOrder(OrderRequest request) {
 
 ---
 
-### 6. Lang잔고를 부탁해 - AI 대출 상담 챗봇
+### 8. Lang잔고를 부탁해 - AI 대출 상담 챗봇
 **2025.10 - 2025.11 | 팀 프로젝트 (4명)**
 
 > LangChain 기반 AI 대출 상담 챗봇
