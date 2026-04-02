@@ -613,7 +613,7 @@ public Order createOrder(OrderRequest request) {
 
 ## 🌐 Language
 
-- TOEIC 870점 (2024)
+- TOEIC 865점 (2025)
 - 영문 기술 문서 독해 가능
 
 ---
