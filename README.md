@@ -4,7 +4,11 @@
 
 <img src="images/profile.jpg" alt="프로필 사진" width="200px">
 
-**CLAUDE.md로 팀 지식을 관리하고, AI 도구를 활용해 생산성을 높이는 백엔드 개발자입니다.**
+**"기획부터 운영까지, AI 도구를 활용할 줄 아는 생산성 높은 개발자"**
+
+요구사항을 명확히 파악하고 다양한 리더, 팔로워 경험으로 팀과 적극적으로 소통하며 문제를 해결합니다.
+
+회의 결정사항을 문서화하여 협업 효율을 높이고, 기술적 난관에 유연하게 대처합니다.
 
 [![GitHub](https://img.shields.io/badge/GitHub-doublejh0501-181717?style=flat&logo=github)](https://github.com/doublejh0501)
 [![Email](https://img.shields.io/badge/Email-jaehun1417@gmail.com-EA4335?style=flat&logo=gmail)](mailto:jaehun1417@gmail.com)
