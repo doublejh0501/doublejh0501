@@ -748,12 +748,12 @@ public Order createOrder(OrderRequest request) {
 
 **3. 프롬프트 엔지니어링 - 챗봇 답변 품질 개선**
 - 문제: GPT-3.5-turbo 사용 초기, 대출 가능 여부 질문에 금융 계산 근거 없이 단정적으로 답변하거나 ChromaDB에서 불러온 금융 정보를 잘못 해석하는 경우 발생
-- 해결: GPT-3.5-turbo → GPT-4.0으로 모델 교체 (복잡한 금융 조건 분기 처리 향상)
+- 해결: GPT-3.5-turbo → GPT-4o로 모델 교체 (복잡한 금융 조건 분기 처리 향상)
 - 시스템 프롬프트 개선: 금융 상담사 역할 명시, LTV/DTI/DSR 계산 근거를 응답에 포함하도록 명시, ChromaDB 검색 문서 기반으로만 답변하도록 제약 추가
 - 결과: 계산 근거가 포함된 구조화된 응답 생성, 불확실한 정보 단정 답변 감소
 
 #### Tech Stack
-- Python 3.11, LangChain, LangGraph, ChromaDB, FastAPI, OpenAI GPT-4.0
+- Python 3.11, LangChain, LangGraph, ChromaDB, FastAPI, OpenAI GPT-3.5-turbo, GPT-4o
 
 #### GitHub
 [Repository](https://github.com/doublejh0501/Loanchat_dev)
@@ -778,7 +778,7 @@ public Order createOrder(OrderRequest request) {
 - **Redis 7**: 캐싱
 
 ### AI & Vector DB
-- **OpenAI API**: GPT-3.5-turbo, GPT-4.0, 프롬프트 엔지니어링
+- **OpenAI API**: GPT-3.5-turbo, GPT-4o, 프롬프트 엔지니어링
 - **ChromaDB**: 벡터 검색
 - **LangChain/LangGraph**: RAG 파이프라인
 
