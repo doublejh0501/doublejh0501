@@ -826,9 +826,6 @@ public Order createOrder(OrderRequest request) {
 - 6개월 풀타임 (Java, Spring Boot, Python, AI)
 - 5개 팀 프로젝트, Git 협업 경험
 
-**강원대학교 컴퓨터공학 학사 졸업**
-2019.03 - 2025.08 | 강원 춘천
-
 ---
 
 ## 📜 Certifications
