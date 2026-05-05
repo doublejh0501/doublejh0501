@@ -46,6 +46,40 @@
 - 결과: 안정적으로 상품 데이터 수집 완료
 
 기술 구현:
+
+```java
+// HTTP 에러 발생 시 재시도 로직 (2초 대기, 최대 2회)
+public String fetchWithRetry(String url) throws InterruptedException {
+    int maxAttempts = 3;
+    for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+            return restClient.get()
+                .uri(url)
+                .header("User-Agent", USER_AGENT)
+                .header("Referer", REFERER)
+                .retrieve()
+                .body(String.class);
+        } catch (HttpServerErrorException e) {
+            if (attempt < maxAttempts) Thread.sleep(2000);
+        }
+    }
+    throw new CrawlingException("수집 실패: " + url);
+}
+```
+
+```java
+// PostgreSQL 배열 타입으로 다중 값 저장 (JOIN 불필요)
+@Column(columnDefinition = "text[]")
+private String[] colors;   // ["red", "blue", "black"]
+
+@Column(columnDefinition = "text[]")
+private String[] seasons;  // ["spring", "summer"]
+
+// 단일 쿼리 조회
+@Query("SELECT p FROM Product p WHERE :color = ANY(p.colors)")
+List<Product> findByColor(String color);
+```
+
 - RestClient (Spring 6.1+)로 JSON API 호출
 - JSoup으로 HTML 파싱 (API로 제공되지 않는 색상 정보 추출)
 
@@ -162,6 +196,29 @@ ChromaDB 선택 이유 (Pinecone 대신):
 - Python 네이티브, OpenAI 임베딩 호환
 
 구현 내용:
+
+```python
+@app.post("/api/recommend")
+async def recommend(quiz_result: QuizResultRequest):
+    # ChromaDB 벡터 검색으로 카테고리별 유사 상품 추출
+    results = collection.query(
+        query_texts=[quiz_result.style_keyword],
+        n_results=15,
+        where={"category": {"$in": ["top", "bottom", "shoes"]}}
+    )
+
+    # 프롬프트: 이상한 조합 방지 조건 명시
+    response = await client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system",
+             "content": "상의 1개, 하의 1개, 신발 1개를 선택하고 색상 계열을 통일하세요."},
+            {"role": "user", "content": str(results["documents"])}
+        ]
+    )
+    return {"outfit": response.choices[0].message.content}
+```
+
 - OpenAI API (GPT-3.5-turbo)로 퀴즈 답변 분석
 - ChromaDB 벡터 검색으로 카테고리별 유사 상품 추출
 - rembg (U2-Net)로 상품 이미지 배경 제거
@@ -181,6 +238,28 @@ ChromaDB 선택 이유 (Pinecone 대신):
 **3. 마이크로서비스 통합 (Java와 Python)**
 
 구현:
+
+```java
+// Java → Python FastAPI 호출 (타임아웃 + 중복 조합 방지)
+private final Set<Long> previousIds = new TreeSet<>();
+
+public RecommendResult callAiService(QuizResult quizResult) {
+    RecommendResult result = restClient.post()
+        .uri(AI_SERVICE_URL + "/api/recommend")
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(quizResult)
+        .retrieve()
+        .body(RecommendResult.class);
+
+    // 이전 추천과 중복 시 재요청
+    if (previousIds.containsAll(result.getProductIds())) {
+        return callAiService(quizResult);
+    }
+    previousIds.addAll(result.getProductIds());
+    return result;
+}
+```
+
 - Java RestClient로 Python FastAPI 호출
 - 중복 조합 회피: TreeSet으로 이전 추천 ID 추적
 - 타임아웃 설정 (연결 5초, 읽기 60초)
@@ -478,6 +557,29 @@ fun `퀴즈 조회 API 테스트`() {
 }
 ```
 
+```kotlin
+// StepVerifier로 Reactive 스트림 검증
+@Test
+fun `카테고리 필터링 테스트`() {
+    every { quizRepository.findByCategory("Java") } returns
+        Flux.just(quiz1, quiz2)
+
+    StepVerifier.create(quizService.getByCategory("Java"))
+        .expectNextMatches { it.category == "Java" }
+        .expectNextMatches { it.category == "Java" }
+        .verifyComplete()
+}
+
+// WebTestClient로 비동기 API 통합 테스트
+@Test
+fun `존재하지 않는 퀴즈 조회 시 404 반환`() {
+    webTestClient.get()
+        .uri("/api/quizzes/999")
+        .exchange()
+        .expectStatus().isNotFound
+}
+```
+
 - 퀴즈 CRUD API 테스트 (7개 테스트 메서드)
 - 카테고리 필터링 테스트
 - 예외 처리 테스트
@@ -552,6 +654,39 @@ User, Security 모듈 전체 담당 (단독)
 - Google, Kakao, Naver OAuth2 통합 (provider별 attribute 매핑)
 - 커스텀 필터로 Authorization 헤더 + HttpOnly 쿠키 동시 인증
 - 신규 유저 자동 가입 (upsert)
+
+```java
+// Authorization 헤더 + HttpOnly 쿠키 동시 인증 필터
+@Component
+public class JwtAuthFilter extends OncePerRequestFilter {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws IOException, ServletException {
+        String token = extractToken(request);
+        if (token != null && jwtProvider.validateToken(token)) {
+            Authentication auth = jwtProvider.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        chain.doFilter(request, response);
+    }
+
+    private String extractToken(HttpServletRequest request) {
+        // Authorization 헤더 우선, 없으면 HttpOnly 쿠키에서 추출
+        String header = request.getHeader("Authorization");
+        if (header != null) return header.replace("Bearer ", "");
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            return Arrays.stream(cookies)
+                .filter(c -> "accessToken".equals(c.getName()))
+                .map(Cookie::getValue)
+                .findFirst().orElse(null);
+        }
+        return null;
+    }
+}
+```
 
 문제 해결 - OAuth2 테스트 어려움:
 - 문제: OAuth2는 로컬 테스트 불가 (실제 provider 서버 필요)
@@ -750,6 +885,25 @@ public Order createOrder(OrderRequest request) {
 - 문제: GPT-3.5-turbo 사용 초기, 대출 가능 여부 질문에 금융 계산 근거 없이 단정적으로 답변하거나 ChromaDB에서 불러온 금융 정보를 잘못 해석하는 경우 발생
 - 해결: GPT-3.5-turbo → GPT-4o로 모델 교체 (복잡한 금융 조건 분기 처리 향상)
 - 시스템 프롬프트 개선: 금융 상담사 역할 명시, LTV/DTI/DSR 계산 근거를 응답에 포함하도록 명시, ChromaDB 검색 문서 기반으로만 답변하도록 제약 추가
+
+```python
+# GPT-4o + ChromaDB RAG 체인
+SYSTEM_PROMPT = """당신은 전문 대출 상담사입니다.
+1. LTV, DTI, DSR 계산 근거를 수치와 함께 명시하세요.
+2. 제공된 문서(context)에 없는 내용은 '확인이 필요합니다'로 표시하세요.
+3. 불확실한 정보를 단정적으로 답변하지 마세요."""
+
+chain = (
+    {"context": retriever, "question": RunnablePassthrough()}
+    | ChatPromptTemplate.from_messages([
+        ("system", SYSTEM_PROMPT),
+        ("human", "{question}\n\n참고 문서:\n{context}")
+    ])
+    | ChatOpenAI(model="gpt-4o", temperature=0)
+    | StrOutputParser()
+)
+```
+
 - 결과: 계산 근거가 포함된 구조화된 응답 생성, 불확실한 정보 단정 답변 감소
 
 #### Tech Stack
