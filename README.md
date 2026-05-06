@@ -75,8 +75,8 @@ private String[] colors;   // ["red", "blue", "black"]
 @Column(columnDefinition = "text[]")
 private String[] seasons;  // ["spring", "summer"]
 
-// 단일 쿼리 조회
-@Query("SELECT p FROM Product p WHERE :color = ANY(p.colors)")
+// 단일 쿼리 조회 (PostgreSQL native query)
+@Query(value = "SELECT * FROM product WHERE :color = ANY(colors)", nativeQuery = true)
 List<Product> findByColor(String color);
 ```
 
@@ -522,7 +522,7 @@ data class QuizResponse(
     val id: Long,
     val question: String,
     val options: List<String>,
-    val correctAnswer: string,
+    val correctAnswer: String,
     val category: String
 )
 ```
